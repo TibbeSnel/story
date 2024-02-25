@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=MonoLisa&display=swap">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'MonoLisa', monospace;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #output {
+            background-color: #000;
+            color: #0f0;
+            padding: 3px;
+            margin-bottom: 20px;
+            width: calc(100vw - 50px);
+            height: calc(100vh - 160px); 
+            overflow-y: auto; 
+            font-size: 30px; 
+            white-space: pre-wrap; 
+        }
+
+        .button-container {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        button {
+            background-color: transparent; 
+            color: #0f0; 
+            border: 2px solid #0f0; 
+            padding: 20px 50px; 
+            margin: 10px;   
+            cursor: pointer;
+            font-size: 25px; 
+            flex-grow: 1; 
+            border-radius: 10px; 
+        }
+
+        button:hover {
+          background-color: rgba(0, 255, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div id="output"> </div>
+    <div class="button-container">
+        <button id="buttonA">Choice A</button>
+        <button id="buttonB">Choice B</button>
+    </div>
+    
+    <script>
+        let output = document.getElementById('output');
+        let buttonA = document.getElementById('buttonA');
+        let buttonB = document.getElementById('buttonB');
+        
+        // Typing effect function
+        function typeText(textElement, text, callback) {
+          let index = 0;
+          textElement.textContent = '';
+
+          function type() {
+              if (index < text.length) {
+                  let char = text.charAt(index);
+                  textElement.textContent += char;
+                  index++;
+                  let delay;
+                  if (char === '.' || char === '!' || char === '?') {
+                      delay = 850; // Longer delay for '.', '!', and '?'
+                  } else if (char === ',') {
+                      delay = 500; // Medium delay for ','
+                  } else {
+                      delay = 40; // Default delay for other characters
+                  }
+                  setTimeout(type, delay);
+              } else if (typeof callback === 'function') {
+                  callback();
+              }
+          }
+          type();
+        }
+
+
+
+        // Add the initial text
+        typeText(output, "Welcome to this interactive story, every choice you make affects the outcome. You can click the buttons to decide which path you take, enjoy! \n\nClick any button to continue.", firstButtonClick)
+
+        // Function to disable buttons
+        function disableButtons() {
+          buttonA.style.visibility = 'hidden';
+          buttonB.style.visibility = 'hidden';
+          buttonA.disabled = true;
+          buttonB.disabled = true;
+        }
+
+        function firstButtonClick() {
+          buttonA.onclick = () => typeText(output, Part_1, setupButtonListeners);
+          buttonB.onclick = () => typeText(output, Part_1, setupButtonListeners);
+        }
+
+        // Function to set up button listeners
+        function setupButtonListeners() {
+            buttonA.onclick = () => typeText(output, Part_2a, () => {
+                buttonA.onclick = () => typeText(output, Part_3aa, () => {
+                    buttonA.onclick = () => typeText(output, Part_4aaa, () => {
+                        buttonA.onclick = () => typeText(output, Part_5aaaa, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5aaab, disableButtons);
+                    });
+                    buttonB.onclick = () => typeText(output, Part_4aab, () => {
+                        buttonA.onclick = () => typeText(output, Part_5aaba, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5aabb, disableButtons);
+                    });
+                });
+                buttonB.onclick = () => typeText(output, Part_3ab, () => {
+                    buttonA.onclick = () => typeText(output, Part_4aba, () => {
+                        buttonA.onclick = () => typeText(output, Part_5abaa, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5abab, disableButtons);
+                    });
+                    buttonB.onclick = () => typeText(output, Part_4abb, () => {
+                        buttonA.onclick = () => typeText(output, Part_5abba, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5abbb, disableButtons);
+                    });
+                });
+            });
+
+            buttonB.onclick = () => typeText(output, Part_2b, () => {
+                buttonA.onclick = () => typeText(output, Part_3ba, () => {
+                    buttonA.onclick = () => typeText(output, Part_4baa, () => {
+                        buttonA.onclick = () => typeText(output, Part_5baaa, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5baab, disableButtons);
+                    });
+                    buttonB.onclick = () => typeText(output, Part_4bab, () => {
+                        buttonA.onclick = () => typeText(output, Part_5baba, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5babb, disableButtons);
+                    });
+                });
+                buttonB.onclick = () => typeText(output, Part_3bb, () => {
+                    buttonA.onclick = () => typeText(output, Part_4bba, () => {
+                        buttonA.onclick = () => typeText(output, Part_5baaa, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5bbab, disableButtons);
+                    });
+                    buttonB.onclick = () => typeText(output, Part_4bbb, () => {
+                        buttonA.onclick = () => typeText(output, Part_5bbba, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5bbbb, disableButtons);
+                    });
+                });
+            });
+        }
+
+        let Part_1 = "In this story you are an British anti-hacker codenamed $herlock, you and your friend, codenamed W@tson, try to hack other 'evil' hackers and stop them. Dispite trying to do good, your work is technically illegal because you and W@tson work independent and not for any government or agency. You've chosen this because you want the freedom to do what you think is right. But it has the consequence that no one can know who you are, and fortunately no one does, or so you think... \n\nOne day a strange man approaches you, he is wearing a long brown overcoat and a hat with the same colour. He stops and says: 'Hello $herlock, Lovely day isn't it?' 'How do you know my codename?!' That's besides the point, I am an MI6 and I am here to ask you for help...' \n\n'An hacker calling herself Ghost hacked the biggest Nuclear Launching Site in Brittain...' $herlock responds: 'What?! Ghost?! The whole world is in danger! She is the most dangerous hacker in the world!' The agent procedes: 'Yes, we know, and all of MI6 MI5 and GCHQ are all working on it, but you're the only one who knows Ghost, you've even worked with her.' $herlock cuts him off: 'So you want to ask me to stop her?' 'Yes, it is going to be very dangerous but the world needs you, are you in or are you out? \n\nOption A: You're out, you say it's to dangerous and you would probably die. (But maybe you could try to stop her yourself.)   \n\nOption B: You're in, you are going to save the world... maybe...";
+        let Part_2a = "Part 2a text";
+        let Part_2b = "Part 2b text";
+        let Part_3aa = "Part 3aa text";
+        let Part_3ab = "Part 3ab text";
+        let Part_3ba = "Part 3ba text";
+        let Part_3bb = "Part 3bb text";
+        let Part_4aaa = "Part 4aaa text";
+        let Part_4aab = "Part 4aab text";
+        let Part_4aba = "Part 4aba text";
+        let Part_4abb = "Part 4abb text";
+        let Part_4baa = "Part 4baa text";
+        let Part_4bab = "Part 4bab text";
+        let Part_4bba = "Part 4bba text";
+        let Part_4bbb = "Part 4bbb text";
+        let Part_5aaaa = "Part 5aaaa text";
+        let Part_5aaab = "Part 5aaab text";
+        let Part_5aaba = "Part 5aaba text";
+        let Part_5aabb = "Part 5aabb text";
+        let Part_5abaa = "Part 5abaa text";
+        let Part_5abab = "Part 5abab text";
+        let Part_5abba = "Part 5abba text";
+        let Part_5abbb = "Part 5abbb text";
+        let Part_5baaa = "Part 5baaa text";
+        let Part_5baab = "Part 5baab text";
+        let Part_5baba = "Part 5baba text";
+        let Part_5babb = "Part 5babb text";
+        let Part_4bbaa = "Part 4bbaa text";
+        let Part_5bbab = "Part 5bbab text";
+        let Part_5bbba = "Part 5bbba text";
+        let Part_5bbbb = "Part 5bbbb text";
+
+        // Load the button listeners when the window loads
+        window.onload = setupButtonListeners;
+    </script>
+</body>
+</html>
