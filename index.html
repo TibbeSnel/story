@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=MonoLisa&display=swap">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'MonoLisa', monospace;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #output {
+            background-color: #000;
+            color: #0f0;
+            padding: 3px;
+            margin-bottom: 20px;
+            width: calc(100vw - 50px);
+            height: calc(100vh - 160px); 
+            overflow-y: auto; 
+            font-size: 30px; 
+            white-space: pre-wrap; 
+        }
+
+        .button-container {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        button {
+            background-color: transparent; 
+            color: #0f0; 
+            border: 2px solid #0f0; 
+            padding: 20px 50px; 
+            margin: 10px;   
+            cursor: pointer;
+            font-size: 25px; 
+            flex-grow: 1; 
+            border-radius: 10px; 
+        }
+
+        button:hover {
+          background-color: rgba(0, 255, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div id="output"> </div>
+    <div class="button-container">
+        <button id="buttonA">Choice A</button>
+        <button id="buttonB">Choice B</button>
+    </div>
+    
+    <script>
+        let output = document.getElementById('output');
+        let buttonA = document.getElementById('buttonA');
+        let buttonB = document.getElementById('buttonB');
+        
+        // Typing effect function
+        function typeText(textElement, text, callback) {
+          let index = 0;
+          textElement.textContent = '';
+
+          function type() {
+              if (index < text.length) {
+                  let char = text.charAt(index);
+                  textElement.textContent += char;
+                  index++;
+                  let delay;
+                  if (char === '.' || char === '!' || char === '?') {
+                      delay = 850; // Longer delay for '.', '!', and '?'
+                  } else if (char === ',') {
+                      delay = 500; // Medium delay for ','
+                  } else {
+                      delay = 40; // Default delay for other characters
+                  }
+                  setTimeout(type, delay);
+              } else if (typeof callback === 'function') {
+                  callback();
+              }
+          }
+          type();
+        }
+
+
+
+        // Add the initial text
+        typeText(output, "Welcome to this interactive story, every choice you make affects the outcome. You can click the buttons to decide which path you take, enjoy! \n\nClick any button to continue.", firstButtonClick)
+
+        // Function to disable buttons
+        function disableButtons() {
+          buttonA.style.visibility = 'hidden';
+          buttonB.style.visibility = 'hidden';
+          buttonA.disabled = true;
+          buttonB.disabled = true;
+        }
+
+        function firstButtonClick() {
+          buttonA.onclick = () => typeText(output, Part_1, setupButtonListeners);
+          buttonB.onclick = () => typeText(output, Part_1, setupButtonListeners);
+        }
+
+        // Function to set up button listeners
+        function setupButtonListeners() {
+            buttonA.onclick = () => typeText(output, Part_2a, () => {
+                buttonA.onclick = () => typeText(output, Part_3aa, () => {
+                    buttonA.onclick = () => typeText(output, Part_4aaa, () => {
+                        buttonA.onclick = () => typeText(output, Part_5aaaa, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5aaab, disableButtons);
+                    });
+                    buttonB.onclick = () => typeText(output, Part_4aab, () => {
+                        buttonA.onclick = () => typeText(output, Part_5aaba, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5aabb, disableButtons);
+                    });
+                });
+                buttonB.onclick = () => typeText(output, Part_3ab, () => {
+                    buttonA.onclick = () => typeText(output, Part_4aba, () => {
+                        buttonA.onclick = () => typeText(output, Part_5abaa, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5abab, disableButtons);
+                    });
+                    buttonB.onclick = () => typeText(output, Part_4abb, () => {
+                        buttonA.onclick = () => typeText(output, Part_5abba, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5abbb, disableButtons);
+                    });
+                });
+            });
+
+            buttonB.onclick = () => typeText(output, Part_2b, () => {
+                buttonA.onclick = () => typeText(output, Part_3ba, () => {
+                    buttonA.onclick = () => typeText(output, Part_4baa, () => {
+                        buttonA.onclick = () => typeText(output, Part_5baaa, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5baab, disableButtons);
+                    });
+                    buttonB.onclick = () => typeText(output, Part_4bab, () => {
+                        buttonA.onclick = () => typeText(output, Part_5baba, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5babb, disableButtons);
+                    });
+                });
+                buttonB.onclick = () => typeText(output, Part_3bb, () => {
+                    buttonA.onclick = () => typeText(output, Part_4bba, () => {
+                        buttonA.onclick = () => typeText(output, Part_5baaa, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5bbab, disableButtons);
+                    });
+                    buttonB.onclick = () => typeText(output, Part_4bbb, () => {
+                        buttonA.onclick = () => typeText(output, Part_5bbba, disableButtons);
+                        buttonB.onclick = () => typeText(output, Part_5bbbb, disableButtons);
+                    });
+                });
+            });
+        }
+
+        let Part_1 = "In this story you are an British anti-hacker/detective codenamed $herlock, you and your friend, codenamed W@tson, try to hack other 'evil' hackers and stop them. You do this because a long time ago you hacked people for money together with an hacker codenamed Ghost, now you have realised you can do something good and protect people instead of hurting them. Dispite trying to do good, your work is technically illegal because you and W@tson work independent, and not for any government or agency.The consequence is that no one can know who you are, and fortunately no one does, or so you think... \n\nOne day a strange man approaches you, he is wearing a long brown overcoat and a hat with the same colour. He stops and says: 'Hello $herlock, Lovely day isn't it?' 'How do you know my codename?!' That's besides the point, I am an MI6 agent and I am here to ask you for help...' \n\n'An hacker calling herself Ghost hacked the biggest Nuclear Launching Site in Brittain...' $herlock responds: 'What?! Ghost?! The whole world is in danger! She is the most dangerous hacker in the world!' The agent procedes: 'Yes, we know, and all of MI6 MI5 and GCHQ are working on it, but you're the only one who knows Ghost, you've even worked with her.' $herlock cuts him off: 'So you want to ask me to stop her?' 'Yes, it is going to be very dangerous but the world needs you, are you in or are you out? \n\nOption A: You're out, you say it's to dangerous and you would probably die. (But maybe you could try to stop her yourself.) \n\nOption B: You're in, you are going to save the world... maybe...";
+        let Part_2a = "The agent leaves after trying to convince you one last time, you go back to your secret  base and tell W@tson about the offer you got. He is very startled but eventually he says: 'I understand what you chose, I also don't want to do everything the agency's say, but we can still make a difference, start up our own investigation and  try to stop Ghost! What do you think? \n\nOption A: You say: 'That is true, but I think the  agency's can solve it themselves. and more importantly: I don't want to die!'\n\nOption B: You say 'That is exactly what I was already planning, let's find her and stop her before it's to late!'";
+        let Part_2b = "You and W@tson go to the MI6 headquarters and start making a plan, you try to hack her but of course she has secured it very well, only she can control it from her computer and only if that computer is connected to the actual system of the launching site. She is inside the building and all of the people that work there are evicted out of the building.  You can do two things... \n\nOption A: Go inside the building and hack the system from the inside. \n\nOption B: Try to find more information so you can find an other way.";
+        let Part_3aa = "W@tson says: 'I also don't want to die, but if we don't help, milions of people may  die, and the agency's, why do you think they asked you? They know they can't stop her, and you do to... Please, just think about it...'  \n\nOption A: You say: 'No, just stop trying to convince me. \n\nOption B: 'You say: 'Fine I'l try it, but if anything dangerous happens, i'm out.";
+        let Part_3ab = "You and W@tson start by trying to hack the nuclear launching site but Ghost has already secured it way to good, only she can control it from her computer and only if that computer is connected to a satellite she hacked. There are only two options of what you can do now... \n\nOption A: Find information about her that maybe help you. \n\nOption B: Ask the agencies to go to the launching site and shut the whole thing off power and destroy the generators, with the chance of Ghost finding out and launching an missile.";
+        let Part_3ba = "You want to go to the main server room, but it is locked and you don't have the code, only Ghost knows it. What do you do? \n\nOption A: Try to find another way of getting in true the door.  \n\nOption B: Go to Ghost and try to catch her with a great chance of her lauching the missiles.";
+        let Part_3bb = "You chose something no one would, here are the subtitles, enjoy. \n\nCode: Tibbe Snel \nStory: Tibbe Snel \nIdea: Tibbe Snel \nAll of the work: Tibbe Snel";
+        let Part_4aaa = "W@tson says: I'm disappointed in you. I really tought you wouldn't be so selfish. \n\nOption A: You say: 'Ok, fine, and you leave and never return. \n\nOption B: You say: 'No, I am not! You are just stupid!'";
+        let Part_4aab = "You and W@tson start by trying to hack the nuclear launching site but Ghost has already secured it way to good, only she can control it from her computer and only if that computer is connected to the actual system of the launching site. She is inside the building and all of the people that work there are evicted out of the building. There are only There are only two options of what you can do now... \n\nOption A: Try to talk her out off what she is doing. \n\nOption B: Ask the agencies to go to the launching site and shut the whole thing off power and destroy the generators, with the chance of Ghost finding out and launching an missile.";
+        let Part_4aba = "You have already been to Ghost's old house, the secret base you and her hacked people at one time,  and all the other places she could have been, but nothing worked. \n\nOption A: Still go to the launching site and try to solve it there. \n\nOption B: Just give up.";
+        let Part_4abb = "When you get to the site you can do two things: \n\nOption A: Try to cut power and destroy the backup generators, with a grater chance of Ghost finding out. \n\nOption B: Try to hack the site from the inside.";
+        let Part_4baa = "You have to make a new plan, you can't crack the  code of the door, because knowing ghost the password is probably to good. What do you do?  \n\nOption A: Try to open the door while you know it's made of pure steel. \n\nOption B: Go to Ghost and try to catch her with a great chance of her lauching the missiles.";
+        let Part_4bab = "A team of special forces goes into the building of the launching site and try to arrest Ghost, but Ghost is able to press the button and escape. \n\nOption A: Cry the world is gone. \n\nOption B: Celebrate the world is gone.";
+        let Part_4bba = "no";
+        let Part_4bbb = "no";
+        let Part_5aaaa = "You leave and join Ghost again, you recieve milions of pounds for not launching the nuclear misiles. And you continue youre old habit of hacking for money, however, this time your not hacking people but governments and my's. The world has become a worse place becouse of you.";
+        let Part_5aaab = "W@tson says: 'I'm sorry, but now you have gone to far. He pickes up his phone and calls 999, before you realised the police is already on there way for what you have done in your time with Ghost.";
+        let Part_5aaba = "Before you can do anything all of your computers turn black exept for one centence: \n\n'You're to late. \nGhost";
+        let Part_5aabb = "Before you can call the agencies all of your computers turn black exept for one sentence: \n\n'You're to late. \nGhost";
+        let Part_5abaa = "Before you can go to the site all of your computers turn black exept for one sentence: \n\n'You're to late. \nGhost";
+        let Part_5abab = "Ghost get's money to not launch the missiles and continues hacking other governments and army's. The police can't catch her.";
+        let Part_5abba = "A team of special forces goes into the building of the launching site and are able to cut off power and also destroy the backup generatiors, but Ghost is able to  escape. She continues hacking governments and army's. The police can't catch her.";
+        let Part_5abbb = "You and a team of special forces go in and you find Ghost, but is able to press the button for launching an missile, she gets arrested and you try to stop the launch by hacking it. And... \n\nIt worked! You saved the world!";
+        let Part_5baaa = "After a bit of thinking the MI6 agent came up with a plan. You go in and of course Ghost sees you true the camera's, but hopfully you have enough time to disable the system. You go to the door and pour some strong acid on it. It works! The door is open and you go in, you connect a device you made to the system but Ghost meanwhile pressed the button! You have only ten seconds left and... \n\nYou disabled it! Now you can safely arrest Ghost. Your an Hero!";
+        let Part_5baab = "A team of special forces goes into the building of the launching site and try to arrest Ghost, but Ghost is able to press the button ad escape. But the missile launches to the sea! And no one is hit! After that she turns herself in. She isn't so terrible after all!";
+        let Part_5baba = "The missile launches to the sea! And no one is hit! After that she turns herself in. She isn't so terrible after all!";
+        let Part_5babb = "The missile launches to the sea! And no one is hit! After that she turns herself in. She isn't so terrible after all!";
+        let Part_4bbaa = "no";
+        let Part_5bbab = "no";
+        let Part_5bbba = "no";
+        let Part_5bbbb = "maybe";
+
+        // Load the button listeners when the window loads
+        window.onload = setupButtonListeners;
+    </script>
+</body>
+</html>
